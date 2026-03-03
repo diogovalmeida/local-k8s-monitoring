@@ -17,6 +17,11 @@ spec:
       containers:
       - name: k8s-monitoring-api
         image: k8s-monitoring/api:latest
+        envFrom:
+        - configMapRef:
+            name: fastapi-config
+        - secretRef:
+            name: db-secret
         livenessProbe:
           httpGet:
             path: /health
