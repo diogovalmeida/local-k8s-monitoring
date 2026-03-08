@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fastapi-config
+  namespace: dev
 data:
   APP_ENV: dev
   APP_PORT: "8000"
