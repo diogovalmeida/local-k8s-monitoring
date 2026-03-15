@@ -2,11 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fastapi-ingress
-  namespace: dev
+  namespace: prod
 spec:
   ingressClassName: nginx
   rules:
-  - host: dev.local
+  - host: prod.local
     http:
       paths:
       - path: /

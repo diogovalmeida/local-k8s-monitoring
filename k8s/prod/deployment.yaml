@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-deployment
-  namespace: dev
+  name: fastapi-production-deployment
+  namespace: prod
   labels:
     app: fastapi
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: fastapi
@@ -40,8 +40,8 @@ spec:
         - containerPort: 8000
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
             memory: "512Mi"
             cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
