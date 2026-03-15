@@ -1,6 +1,6 @@
 # Local Kubernetes Monitoring Stack
 
-A production-like Kubernetes setup running locally on macOS or Linux, with full observability via Prometheus and Grafana. Built as part of a university project at ISTEC Lisboa.
+A production-like Kubernetes setup running locally on macOS or Linux, with full observability via Prometheus and Grafana.
 
 Don't forget to leave a **star ⭐!**
 
@@ -30,7 +30,14 @@ Everything runs on your machine. No cloud costs.
 
 ## Getting Started
 
-### 1. Install Prerequisites
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your_username/local-k8s-monitoring.git
+cd local-k8s-monitoring
+```
+
+### 2. Install Prerequisites
 
 ```bash
 chmod +x install-prerequisites.sh
@@ -38,13 +45,6 @@ chmod +x install-prerequisites.sh
 ```
 
 Installs automatically on macOS (via Homebrew) and Linux (via apt/dnf/pacman): Docker, Kind, kubectl, Helm.
-
-### 2. Clone the repository
-
-```bash
-git clone https://github.com/your_username/local-k8s-monitoring.git
-cd local-k8s-monitoring
-```
 
 ### 3. Run the setup script
 
@@ -141,9 +141,3 @@ Stop with `Ctrl+C`.
 - **[Prometheus](https://prometheus.io/)** — metrics collection
 - **[Grafana](https://grafana.com/)** — metrics visualisation
 - **[Bitnami PostgreSQL](https://bitnami.com/stack/postgresql/helm)** — Helm chart for PostgreSQL
-
----
-
-## License
-
-MIT
