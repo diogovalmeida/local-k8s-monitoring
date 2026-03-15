@@ -28,7 +28,14 @@ Everything runs on your machine. No cloud costs.
 
 ## Getting Started
 
-### 1. Install Prerequisites
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your_username/local-k8s-monitoring.git
+cd local-k8s-monitoring
+```
+
+### 2. Install Prerequisites
 
 **macOS / Linux**
 
@@ -51,13 +58,6 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 Installs: WSL2, Chocolatey, Docker Desktop, Kind, kubectl, Helm.
 
 > After the script finishes on Windows, open a WSL2 terminal (e.g. Ubuntu from the Start menu) and run all subsequent commands from there.
-
-### 2. Clone the repository
-
-```bash
-git clone https://github.com/your_username/local-k8s-monitoring.git
-cd local-k8s-monitoring
-```
 
 ### 3. Run the setup script
 
