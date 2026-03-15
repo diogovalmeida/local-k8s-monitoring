@@ -11,6 +11,9 @@ log()  { echo -e "${GREEN}[INFO]${NC}  $1"; }
 warn() { echo -e "${YELLOW}[WARN]${NC}  $1"; }
 error(){ echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
+# Detect OS
+OS="$(uname -s)"
+
 echo ""
 echo "🚀 Local Kubernetes Monitoring Stack — Setup"
 echo "============================================="
@@ -18,10 +21,10 @@ echo ""
 
 # 1. DEPENDENCIES
 log "Checking dependencies..."
-command -v docker  &>/dev/null || error "Docker not found. Install Docker Desktop."
-command -v kind    &>/dev/null || error "Kind not found.    Run: brew install kind"
-command -v kubectl &>/dev/null || error "kubectl not found. Run: brew install kubectl"
-command -v helm    &>/dev/null || error "Helm not found.    Run: brew install helm"
+command -v docker  &>/dev/null || error "Docker not found. Install Docker Desktop (macOS) or Docker Engine (Linux)."
+command -v kind    &>/dev/null || error "Kind not found.    See: https://kind.sigs.k8s.io/docs/user/quick-start/#installation"
+command -v kubectl &>/dev/null || error "kubectl not found. See: https://kubernetes.io/docs/tasks/tools/"
+command -v helm    &>/dev/null || error "Helm not found.    See: https://helm.sh/docs/intro/install/"
 log "All dependencies found."
 
 # 2. CLUSTER
@@ -109,12 +112,25 @@ log "Applying Grafana Ingress..."
 kubectl apply -f k8s/monitoring/grafana-ingress.yaml
 
 # 9. DNS
+log "Adding DNS entries to /etc/hosts..."
 if ! grep -q "dev.local" /etc/hosts; then
-  warn "Adding DNS entries to /etc/hosts (requires sudo)..."
   echo "127.0.0.1 dev.local prod.local grafana.local" | sudo tee -a /etc/hosts
+  log "DNS entries added."
 else
   warn "DNS entries already in /etc/hosts. Skipping."
 fi
+
+# 10. WAIT FOR PODS
+log "Waiting for FastAPI pods to be ready..."
+kubectl wait --namespace dev \
+  --for=condition=ready pod \
+  --selector=app=fastapi \
+  --timeout=120s
+
+kubectl wait --namespace prod \
+  --for=condition=ready pod \
+  --selector=app=fastapi \
+  --timeout=120s
 
 # DONE
 GRAFANA_PASS=$(kubectl --namespace monitoring get secrets monitoring-grafana \

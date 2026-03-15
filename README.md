@@ -1,6 +1,6 @@
 # Local Kubernetes Monitoring Stack
 
-A production-like Kubernetes setup running locally on macOS, Linux or Windows (WSL2), with full observability via Prometheus and Grafana. Built as part of a university project at ISTEC Lisboa.
+A production-like Kubernetes setup running locally on macOS or Linux, with full observability via Prometheus and Grafana. Built as part of a university project at ISTEC Lisboa.
 
 Don't forget to leave a **star ⭐!**
 
@@ -11,6 +11,8 @@ Don't forget to leave a **star ⭐!**
 The goal of this project is to simulate a real company Kubernetes environment on a local machine — with separate dev and prod namespaces, a FastAPI application connected to PostgreSQL, and a full monitoring stack using Prometheus and Grafana.
 
 Everything runs on your machine. No cloud costs.
+
+> ⚠️ **Windows is not supported.** Kubernetes tooling is native to Unix systems. Use macOS or Linux for the best experience.
 
 ---
 
@@ -28,36 +30,21 @@ Everything runs on your machine. No cloud costs.
 
 ## Getting Started
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your_username/local-k8s-monitoring.git
-cd local-k8s-monitoring
-```
-
-### 2. Install Prerequisites
-
-**macOS / Linux**
+### 1. Install Prerequisites
 
 ```bash
 chmod +x install-prerequisites.sh
 ./install-prerequisites.sh
 ```
 
-Installs: Homebrew (macOS), Docker, Kind, kubectl, Helm.
+Installs automatically on macOS (via Homebrew) and Linux (via apt/dnf/pacman): Docker, Kind, kubectl, Helm.
 
-**Windows**
+### 2. Clone the repository
 
-Open PowerShell as Administrator and run:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force
-.\install-prerequisites.ps1
+```bash
+git clone https://github.com/your_username/local-k8s-monitoring.git
+cd local-k8s-monitoring
 ```
-
-Installs: WSL2, Chocolatey, Docker Desktop, Kind, kubectl, Helm.
-
-> After the script finishes on Windows, open a WSL2 terminal (e.g. Ubuntu from the Start menu) and run all subsequent commands from there.
 
 ### 3. Run the setup script
 
@@ -154,3 +141,9 @@ Stop with `Ctrl+C`.
 - **[Prometheus](https://prometheus.io/)** — metrics collection
 - **[Grafana](https://grafana.com/)** — metrics visualisation
 - **[Bitnami PostgreSQL](https://bitnami.com/stack/postgresql/helm)** — Helm chart for PostgreSQL
+
+---
+
+## License
+
+MIT

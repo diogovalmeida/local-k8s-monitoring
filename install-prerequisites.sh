@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
@@ -22,7 +24,6 @@ echo ""
 if [ "$OS" = "Darwin" ]; then
   log "Detected macOS."
 
-  # Homebrew
   if ! command -v brew &>/dev/null; then
     log "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -30,16 +31,14 @@ if [ "$OS" = "Darwin" ]; then
     warn "Homebrew already installed. Skipping."
   fi
 
-  # Docker Desktop
   if ! command -v docker &>/dev/null; then
     log "Installing Docker Desktop..."
     brew install --cask docker
-    log "Docker Desktop installed. Please open it manually to complete setup."
+    log "Docker Desktop installed. Please open it to complete setup."
   else
     warn "Docker already installed. Skipping."
   fi
 
-  # Kind
   if ! command -v kind &>/dev/null; then
     log "Installing Kind..."
     brew install kind
@@ -47,7 +46,6 @@ if [ "$OS" = "Darwin" ]; then
     warn "Kind already installed. Skipping."
   fi
 
-  # kubectl
   if ! command -v kubectl &>/dev/null; then
     log "Installing kubectl..."
     brew install kubectl
@@ -55,7 +53,6 @@ if [ "$OS" = "Darwin" ]; then
     warn "kubectl already installed. Skipping."
   fi
 
-  # Helm
   if ! command -v helm &>/dev/null; then
     log "Installing Helm..."
     brew install helm
@@ -69,7 +66,6 @@ if [ "$OS" = "Darwin" ]; then
 elif [ "$OS" = "Linux" ]; then
   log "Detected Linux."
 
-  # Detect package manager
   if command -v apt-get &>/dev/null; then
     PKG="apt"
   elif command -v dnf &>/dev/null; then
@@ -80,7 +76,6 @@ elif [ "$OS" = "Linux" ]; then
     error "Unsupported package manager. Install dependencies manually."
   fi
 
-  # Docker
   if ! command -v docker &>/dev/null; then
     log "Installing Docker..."
     if [ "$PKG" = "apt" ]; then
@@ -92,7 +87,7 @@ elif [ "$OS" = "Linux" ]; then
         https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
         sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
       sudo apt-get update -q
-      sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin
       sudo usermod -aG docker "$USER"
       log "Docker installed. Log out and back in for group changes to take effect."
     elif [ "$PKG" = "dnf" ]; then
@@ -110,7 +105,6 @@ elif [ "$OS" = "Linux" ]; then
     warn "Docker already installed. Skipping."
   fi
 
-  # Kind
   if ! command -v kind &>/dev/null; then
     log "Installing Kind..."
     ARCH=$(uname -m)
@@ -123,7 +117,6 @@ elif [ "$OS" = "Linux" ]; then
     warn "Kind already installed. Skipping."
   fi
 
-  # kubectl
   if ! command -v kubectl &>/dev/null; then
     log "Installing kubectl..."
     ARCH=$(uname -m)
@@ -136,7 +129,6 @@ elif [ "$OS" = "Linux" ]; then
     warn "kubectl already installed. Skipping."
   fi
 
-  # Helm
   if ! command -v helm &>/dev/null; then
     log "Installing Helm..."
     curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -145,12 +137,9 @@ elif [ "$OS" = "Linux" ]; then
   fi
 
 else
-  error "Unsupported OS: $OS. On Windows, use WSL2 and run this script inside it."
+  error "Unsupported OS: $OS. This project supports macOS and Linux only."
 fi
 
-# ─────────────────────────────────────────────
-# DONE
-# ─────────────────────────────────────────────
 echo ""
 echo "==========================="
 echo -e "${GREEN}✅ Prerequisites installed!${NC}"
