@@ -23,7 +23,7 @@ spec:
         - configMapRef:
             name: fastapi-config
         - secretRef:
-            name: db-secret
+            name: postgres-prod-postgresql
         livenessProbe:
           httpGet:
             path: /health

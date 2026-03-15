@@ -4,6 +4,10 @@ metadata:
   name: fastapi-config
   namespace: prod
 data:
-  APP_ENV: dev
+  APP_ENV: prod
   APP_PORT: "8000"
   LOG_LEVEL: info
+  DB_HOST: postgres-prod-postgresql.prod.svc.cluster.local
+  DB_PORT: "5432"
+  DB_USER: kbs-admin
+  DB_NAME: my-db
