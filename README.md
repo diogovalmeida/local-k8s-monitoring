@@ -130,14 +130,3 @@ kubectl exec -it -n dev \
 Watch the CPU spike in Grafana under **Dashboards → Kubernetes / Compute Resources / Namespace (Pods)**.
 
 Stop with `Ctrl+C`.
-
----
-
-## Built With
-
-- **[FastAPI](https://fastapi.tiangolo.com/)** - modern Python web framework
-- **[Kind](https://kind.sigs.k8s.io/)** - Kubernetes in Docker
-- **[Helm](https://helm.sh/)** - Kubernetes package manager
-- **[Prometheus](https://prometheus.io/)** - metrics collection
-- **[Grafana](https://grafana.com/)** - metrics visualisation
-- **[Bitnami PostgreSQL](https://bitnami.com/stack/postgresql/helm)** - Helm chart for PostgreSQL
