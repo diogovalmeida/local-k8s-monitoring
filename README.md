@@ -33,7 +33,7 @@ Everything runs on your machine. No cloud costs.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your_username/local-k8s-monitoring.git
+git clone https://github.com/diogovalmeida/local-k8s-monitoring.git
 cd local-k8s-monitoring
 ```
 
