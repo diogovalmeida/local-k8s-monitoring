@@ -2,8 +2,6 @@
 
 A production-like Kubernetes setup running locally on macOS or Linux, with full observability via Prometheus and Grafana.
 
-Don't forget to leave a **star ⭐!**
-
 ---
 
 ## About
